@@ -1,0 +1,7 @@
+﻿{
+  "dependencies": {
+    "appInsights": {
+      "type": "appInsights.sdk"
+    }
+  }
+}

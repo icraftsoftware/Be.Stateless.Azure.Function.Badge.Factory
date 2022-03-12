@@ -1,0 +1,8 @@
+﻿{
+  "dependencies": {
+    "appInsights": {
+      "type": "appInsights",
+      "connectionId": "APPINSIGHTS_CONNECTIONSTRING"
+    }
+  }
+}

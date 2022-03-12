@@ -1,0 +1,27 @@
+﻿{
+    "version": "2.0",
+    "extensions": {
+        "http": {
+            "routePrefix": ""
+        }
+    },
+    "logging": {
+        "applicationInsights": {
+            "samplingSettings": {
+                "isEnabled": true,
+                "excludedTypes": "Request"
+            }
+        },
+        "logLevel": {
+            //"default": "Information",
+            //"Function": "Information",
+            //"Function.MyFunction": "Information",
+            //"Function.Artifact": "Information",
+            "Function.artifact": "Information"
+            //"Function.Be.Stateless.Azure.Function.Badge.Factory.ArtifactFunction": "Information"
+            //"Be.Stateless.Azure.Function.Badge.Factory.ArtifactFunction": "Information",
+            //"Be.Stateless.Azure.Function.Badge.Factory.Model.Repository.BadgeService": "Information",
+            //"Be.Stateless.Azure.Function.Badge.Factory.Model.Repository.PackageFeed": "Information"
+        }
+    }
+}

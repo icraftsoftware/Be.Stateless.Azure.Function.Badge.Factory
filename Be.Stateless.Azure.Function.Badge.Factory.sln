@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.Azure.Function.Badge.Factory", "src\Be.Stateless.Azure.Function.Badge.Factory\Be.Stateless.Azure.Function.Badge.Factory.csproj", "{6F06C1A5-76C9-4D71-8ED9-0A3CAB821EC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Stateless.Azure.Function.Badge.Factory.Tests", "src\Be.Stateless.Azure.Function.Badge.Factory.Tests\Be.Stateless.Azure.Function.Badge.Factory.Tests.csproj", "{934ADF0D-B68C-454B-AA02-B1EE653F47C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F06C1A5-76C9-4D71-8ED9-0A3CAB821EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F06C1A5-76C9-4D71-8ED9-0A3CAB821EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F06C1A5-76C9-4D71-8ED9-0A3CAB821EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F06C1A5-76C9-4D71-8ED9-0A3CAB821EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{934ADF0D-B68C-454B-AA02-B1EE653F47C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934ADF0D-B68C-454B-AA02-B1EE653F47C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{934ADF0D-B68C-454B-AA02-B1EE653F47C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{934ADF0D-B68C-454B-AA02-B1EE653F47C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F87513D-F565-41D1-B8A6-E39C103E63E0}
+	EndGlobalSection
+EndGlobal
