@@ -17,8 +17,8 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using FluentAssertions;
-using Newtonsoft.Json;
 using Xunit;
 using static FluentAssertions.FluentActions;
 
@@ -72,7 +72,7 @@ namespace Be.Stateless.Azure.Function.Badge.Factory.Model
     }
   ]
 }";
-			Invoking(() => JsonConvert.DeserializeObject<Content<Package>>(json)).Should().NotThrow();
+			Invoking(() => JsonSerializer.Deserialize<Content<Package>>(json)).Should().NotThrow();
 		}
 	}
 }

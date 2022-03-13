@@ -33,7 +33,7 @@ public class FromQueryStringBindingExtensionProvider : IExtensionConfigProvider
 {
 	public FromQueryStringBindingExtensionProvider(ILoggerFactory loggerFactory)
 	{
-		_logger = loggerFactory.CreateLogger("CustomBinding");
+		_logger = loggerFactory.CreateLogger("FromQueryStringBinding");
 	}
 
 	#region IExtensionConfigProvider Members

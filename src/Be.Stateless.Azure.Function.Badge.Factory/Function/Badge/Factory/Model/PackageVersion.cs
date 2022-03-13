@@ -17,7 +17,7 @@
 #endregion
 
 using System;
-using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
@@ -25,14 +25,13 @@ namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 /// Artifact Details.
 /// </summary>
 /// <seealso href="https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages?view=azure-devops-rest-6.0#minimalpackageversion">MinimalPackageVersion</seealso>
+[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
 public class PackageVersion
 {
-	[JsonProperty("isLatest")]
-	public bool IsLatest { get; set; }
+	public bool IsLatest { get; init; }
 
-	[JsonProperty("publishDate")]
-	public DateTime PublishDate { get; set; }
+	public DateTime PublishDate { get; init; }
 
-	[JsonProperty("version")]
-	public string Version { get; set; }
+	public string Version { get; init; }
 }

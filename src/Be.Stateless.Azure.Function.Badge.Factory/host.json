@@ -15,8 +15,8 @@
         "logLevel": {
             //"default": "Information",
             "Function.Package": "Debug",
-            "CustomBinding": "Debug",
             "BadgeService": "Debug",
+            "FromQueryStringBinding": "Debug",
             "PackageFeed": "Debug"
         }
     }

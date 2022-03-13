@@ -16,15 +16,11 @@
 
 #endregion
 
-using Newtonsoft.Json;
-
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
 public class Content<T>
 {
-	[JsonProperty("count")]
-	public int Count { get; set; }
+	public int Count { get; init; }
 
-	[JsonProperty("value")]
-	public T[] Value { get; set; }
+	public T[] Value { get; init; }
 }

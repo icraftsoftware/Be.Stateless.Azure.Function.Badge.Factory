@@ -18,6 +18,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Be.Stateless.Azure.AspNetCore.Mvc;
 using Be.Stateless.Azure.Function.Badge.Factory.Model;
@@ -28,7 +29,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory;
 
@@ -75,8 +75,8 @@ public class PackageBadgeFactoryFunction
 		if (logger.IsEnabled(LogLevel.Debug))
 			logger.LogDebug(
 				"PackageBadgeFactoryFunction is manufacturing a badge for artifact {artifact} with skin {skin}.",
-				JsonConvert.SerializeObject(artifact),
-				JsonConvert.SerializeObject(skin));
+				JsonSerializer.Serialize(artifact),
+				JsonSerializer.Serialize(skin));
 
 		var package = await _packageFeed.GetPackageAsync(artifact);
 

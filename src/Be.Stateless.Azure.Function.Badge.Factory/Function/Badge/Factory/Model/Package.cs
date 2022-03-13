@@ -16,8 +16,8 @@
 
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
@@ -25,16 +25,14 @@ namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 /// Artifact Details.
 /// </summary>
 /// <seealso href="https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages?view=azure-devops-rest-6.0#package">Package</seealso>
+[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
 public class Package
 {
-	[JsonProperty("id")]
-	public string Id { get; set; }
-
 	public PackageVersion LatestVersion => Versions.Single(v => v.IsLatest);
 
-	[JsonProperty("name")]
-	public string Name { get; set; }
+	public string Name { get; init; }
 
-	[JsonProperty("versions")]
-	public PackageVersion[] Versions { get; set; }
+	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+	public PackageVersion[] Versions { get; init; }
 }

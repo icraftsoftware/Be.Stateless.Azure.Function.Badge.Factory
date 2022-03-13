@@ -24,11 +24,11 @@ namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
 public class Artifact
 {
-	public string Feed { get; set; }
+	public string Feed { get; init; }
 
-	public string Name { get; set; }
+	public string Name { get; init; }
 
-	public string Organization { get; set; }
+	public string Organization { get; init; }
 
-	public string Project { get; set; }
+	public string Project { get; init; }
 }

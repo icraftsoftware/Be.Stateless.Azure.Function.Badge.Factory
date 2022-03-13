@@ -19,6 +19,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
@@ -36,9 +37,8 @@ public class PackageFeed
 	{
 		var uri = GetPackageFeedUriForArtifact(artifact);
 		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get artifact package details from feed '{uri}'.", uri);
-		var response = await _client.GetAsync(uri);
-		var content = await response.Content.ReadAsAsync<Content<Package>>();
-		return content.Value.Single();
+		var content = await _client.GetFromJsonAsync<Content<Package>>(uri);
+		return content!.Value.Single();
 	}
 
 	private Uri GetPackageFeedUriForArtifact(Artifact artifact)

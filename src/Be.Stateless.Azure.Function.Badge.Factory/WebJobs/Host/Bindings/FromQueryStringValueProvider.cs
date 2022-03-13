@@ -17,12 +17,13 @@
 #endregion
 
 using System;
-using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Be.Stateless.Azure.AspNetCore.Http.Extensions;
+using Be.Stateless.IO.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace Be.Stateless.Azure.WebJobs.Host.Bindings;
 
@@ -40,13 +41,12 @@ public class FromQueryStringValueProvider<T> : IValueProvider where T : new()
 	{
 		try
 		{
-			var json = ToInvokeString();
 			if (_logger.IsEnabled(LogLevel.Debug))
 				_logger.LogDebug(
-					"Deserializing type {type} from query string's equivalent json {json}.",
+					"Deserializing type {type} from query string's json equivalent {json}.",
 					typeof(T).Name,
-					json);
-			var result = JsonConvert.DeserializeObject<T>(json);
+					ToInvokeString());
+			var result = JsonSerializer.Deserialize<T>(_query.AsJsonStream(), new JsonSerializerOptions(JsonSerializerDefaults.Web));
 			return Task.FromResult<object>(result);
 		}
 		catch (Exception exception)
@@ -60,8 +60,7 @@ public class FromQueryStringValueProvider<T> : IValueProvider where T : new()
 
 	public string ToInvokeString()
 	{
-		var properties = _query.ToDictionary(kv => kv.Key, kv => kv.Value.Single());
-		return JsonConvert.SerializeObject(properties, Formatting.None);
+		return _query.AsJsonStream().ReadToEnd();
 	}
 
 	#endregion

@@ -34,8 +34,7 @@ public class BadgeService
 	{
 		var badge = new Badge(skin.Label ?? package.Name, package.LatestVersion.Version, skin.Color, skin.Style, skin.Logo);
 		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get badge image from uri '{uri}'.", badge.Uri);
-		var response = await _client.GetAsync(badge.Uri);
-		badge.Stream = await response.Content.ReadAsStreamAsync();
+		badge.Stream = await _client.GetStreamAsync(badge.Uri);
 		return badge;
 	}
 

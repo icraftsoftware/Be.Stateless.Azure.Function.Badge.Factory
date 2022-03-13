@@ -16,20 +16,15 @@
 
 #endregion
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
-[SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
-[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
 public class Skin
 {
-	public string Color { get; set; } = "yellow";
+	public string Color { get; init; } = "yellow";
 
-	public string Label { get; set; }
+	public string Label { get; init; }
 
-	public string Logo { get; set; } = "azureArtifacts";
+	public string Logo { get; init; } = "azureArtifacts";
 
-	public string Style { get; set; } = "flat";
+	public string Style { get; init; } = "flat";
 }
