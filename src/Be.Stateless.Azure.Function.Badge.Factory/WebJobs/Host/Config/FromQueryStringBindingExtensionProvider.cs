@@ -17,7 +17,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using Be.Stateless.Azure.Function;
 using Be.Stateless.Azure.WebJobs.Description;
 using Be.Stateless.Azure.WebJobs.Host.Bindings;
 using Microsoft.Azure.WebJobs.Host.Config;
@@ -30,21 +29,22 @@ namespace Be.Stateless.Azure.WebJobs.Host.Config;
 /// </summary>
 /// <seealso href="https://www.red-gate.com/simple-talk/blogs/custom-binding-azure-functions/"/>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-public class FromQueryBindingExtensionProvider : IExtensionConfigProvider
+public class FromQueryStringBindingExtensionProvider : IExtensionConfigProvider
 {
-	public FromQueryBindingExtensionProvider(ILogger<Startup> logger)
+	public FromQueryStringBindingExtensionProvider(ILoggerFactory loggerFactory)
 	{
-		_logger = logger;
+		_logger = loggerFactory.CreateLogger("CustomBinding");
 	}
 
 	#region IExtensionConfigProvider Members
 
 	public void Initialize(ExtensionConfigContext context)
 	{
-		context.AddBindingRule<FromQueryStringAttribute>().Bind(new FromQueryBindingProvider(_logger));
+		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Adding binding rule for custom binding provider '{provider}'.", nameof(FromQueryStringBindingProvider));
+		context.AddBindingRule<FromQueryStringAttribute>().Bind(new FromQueryStringBindingProvider(_logger));
 	}
 
 	#endregion
 
-	private readonly ILogger<Startup> _logger;
+	private readonly ILogger _logger;
 }

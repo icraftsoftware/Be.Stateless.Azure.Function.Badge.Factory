@@ -26,16 +26,6 @@ namespace Be.Stateless.Azure.Function.Badge.Factory.Model.Repository;
 
 public class PackageFeed
 {
-	private static Uri GetPackageFeedUriForArtifact(Artifact artifact)
-	{
-		// see https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages
-		var builder = new UriBuilder(Uri.UriSchemeHttps, "feeds.dev.azure.com") {
-			Path = $"{artifact.Organization}/{artifact.Project}/_apis/packaging/Feeds/{artifact.Feed}/packages",
-			Query = $"packageNameQuery={artifact.Name}"
-		};
-		return builder.Uri;
-	}
-
 	public PackageFeed(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory)
 	{
 		_client = httpClientFactory.CreateClient(nameof(PackageFeed));
@@ -45,10 +35,20 @@ public class PackageFeed
 	public async Task<Package> GetPackageAsync(Artifact artifact)
 	{
 		var uri = GetPackageFeedUriForArtifact(artifact);
-		_logger.LogInformation("Get package details from {0}", uri);
+		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get artifact package details from feed '{uri}'.", uri);
 		var response = await _client.GetAsync(uri);
 		var content = await response.Content.ReadAsAsync<Content<Package>>();
 		return content.Value.Single();
+	}
+
+	private Uri GetPackageFeedUriForArtifact(Artifact artifact)
+	{
+		// see https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages
+		var builder = new UriBuilder(Uri.UriSchemeHttps, "feeds.dev.azure.com") {
+			Path = $"{artifact.Organization}/{artifact.Project}/_apis/packaging/Feeds/{artifact.Feed}/packages",
+			Query = $"packageNameQuery={artifact.Name}"
+		};
+		return builder.Uri;
 	}
 
 	private readonly HttpClient _client;

@@ -23,9 +23,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Be.Stateless.Azure.WebJobs.Host.Bindings;
 
-public class FromQueryBindingProvider : IBindingProvider
+public class FromQueryStringBindingProvider : IBindingProvider
 {
-	public FromQueryBindingProvider(ILogger logger)
+	public FromQueryStringBindingProvider(ILogger logger)
 	{
 		_logger = logger;
 	}
@@ -34,16 +34,17 @@ public class FromQueryBindingProvider : IBindingProvider
 
 	public Task<IBinding> TryCreateAsync(BindingProviderContext context)
 	{
-		var binding = CreateBinding(_logger, context.Parameter.ParameterType);
+		var binding = CreateBinding(context.Parameter.ParameterType);
 		return Task.FromResult(binding);
 	}
 
 	#endregion
 
-	private IBinding CreateBinding(ILogger log, Type T)
+	private IBinding CreateBinding(Type type)
 	{
-		var type = typeof(FromQueryBinding<>).MakeGenericType(T);
-		var context = Activator.CreateInstance(type, log);
+		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Constructing custom binding FromQueryStringBinding<{type}>.", type.Name);
+		var genericType = typeof(FromQueryStringBinding<>).MakeGenericType(type);
+		var context = Activator.CreateInstance(genericType, _logger);
 		return (IBinding) context;
 	}
 

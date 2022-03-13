@@ -37,7 +37,7 @@ public class Startup : FunctionsStartup
 
 		// https://www.red-gate.com/simple-talk/blogs/custom-binding-azure-functions/
 		var wbBuilder = builder.Services.AddWebJobs(null);
-		wbBuilder.AddExtension<FromQueryBindingExtensionProvider>();
+		wbBuilder.AddExtension<FromQueryStringBindingExtensionProvider>();
 	}
 
 	#endregion

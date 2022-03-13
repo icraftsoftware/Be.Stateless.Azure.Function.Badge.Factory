@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory;
 
@@ -37,15 +38,15 @@ namespace Be.Stateless.Azure.Function.Badge.Factory;
 /// <example>
 /// <list type="bullet">
 /// <item>
-/// <![CDATA[https://badge-factory.azurewebsites.net/artifact/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
+/// <![CDATA[https://badge-factory.azurewebsites.net/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
 /// </item>
 /// <item>
 /// <![CDATA[
-/// https://badge-factory.azurewebsites.net/artifact/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx?color=red&label=Azure%20Artifact&logo=powershell&style=plastic
+/// https://badge-factory.azurewebsites.net/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx?color=red&label=Azure%20Artifact&logo=powershell&style=plastic
 /// ]]>
 /// </item>
 /// <item>
-/// <![CDATA[http://localhost:7071/artifact/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
+/// <![CDATA[http://localhost:7071/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
 /// </item>
 /// </list>
 /// </example>
@@ -53,24 +54,29 @@ namespace Be.Stateless.Azure.Function.Badge.Factory;
 /// <seealso href="https://azpkgsshield.azurevoodoo.net/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx"/>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Azure Function.")]
 [SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Azure Function.")]
-public class ArtifactFunction
+public class PackageBadgeFactoryFunction
 {
-	public ArtifactFunction(PackageFeed packageFeed, BadgeService badgeService)
+	public PackageBadgeFactoryFunction(PackageFeed packageFeed, BadgeService badgeService)
 	{
 		_packageFeed = packageFeed;
 		_badgeService = badgeService;
 	}
 
 	[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure Function.")]
-	[FunctionName("artifact")]
+	[FunctionName("package")]
 	public async Task<IActionResult> Run(
-		[HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "artifact/{organization}/{project}/{feed}/{name}")] //
-		[FromRoute] Artifact artifact,
-		[FromQueryString] Skin skin, // ?color={color}&label={label}&logo={logo}&style={style}
+		[HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "package/{organization}/{project}/{feed}/{name}")] //
+		[FromRoute]
+		Artifact artifact,
+		[FromQueryString] // ?color={color}&label={label}&logo={logo}&style={style}
+		Skin skin,
 		ILogger logger)
 	{
-		// TODO have logging works in all classes
-		logger.LogInformation("Artifact Function is Processing...");
+		if (logger.IsEnabled(LogLevel.Debug))
+			logger.LogDebug(
+				"PackageBadgeFactoryFunction is manufacturing a badge for artifact {artifact} with skin {skin}.",
+				JsonConvert.SerializeObject(artifact),
+				JsonConvert.SerializeObject(skin));
 
 		var package = await _packageFeed.GetPackageAsync(artifact);
 

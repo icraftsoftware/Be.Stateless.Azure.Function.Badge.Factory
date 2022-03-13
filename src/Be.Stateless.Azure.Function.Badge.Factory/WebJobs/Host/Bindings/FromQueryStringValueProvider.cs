@@ -26,9 +26,9 @@ using Newtonsoft.Json;
 
 namespace Be.Stateless.Azure.WebJobs.Host.Bindings;
 
-public class FromQueryValueProvider<T> : IValueProvider where T : new()
+public class FromQueryStringValueProvider<T> : IValueProvider where T : new()
 {
-	public FromQueryValueProvider(IQueryCollection query, ILogger logger)
+	public FromQueryStringValueProvider(IQueryCollection query, ILogger logger)
 	{
 		_query = query;
 		_logger = logger;
@@ -40,21 +40,29 @@ public class FromQueryValueProvider<T> : IValueProvider where T : new()
 	{
 		try
 		{
-			var properties = _query.ToDictionary(kv => kv.Key, kv => kv.Value.Single());
-			var json = JsonConvert.SerializeObject(properties, Formatting.None);
+			var json = ToInvokeString();
+			if (_logger.IsEnabled(LogLevel.Debug))
+				_logger.LogDebug(
+					"Deserializing type {type} from query string's equivalent json {json}.",
+					typeof(T).Name,
+					json);
 			var result = JsonConvert.DeserializeObject<T>(json);
 			return Task.FromResult<object>(result);
 		}
-		catch (Exception ex)
+		catch (Exception exception)
 		{
-			_logger.LogCritical(ex, $"Could not deserialize{typeof(T)} from request Query.");
+			_logger.LogCritical(exception, "Could not deserialize type {type} from query string.", typeof(T).Name);
 			throw;
 		}
 	}
 
-	public Type Type => typeof(object);
+	public Type Type => typeof(T);
 
-	public string ToInvokeString() => string.Empty;
+	public string ToInvokeString()
+	{
+		var properties = _query.ToDictionary(kv => kv.Key, kv => kv.Value.Single());
+		return JsonConvert.SerializeObject(properties, Formatting.None);
+	}
 
 	#endregion
 

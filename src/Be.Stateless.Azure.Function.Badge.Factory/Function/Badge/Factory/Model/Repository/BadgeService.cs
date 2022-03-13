@@ -26,14 +26,14 @@ public class BadgeService
 {
 	public BadgeService(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory)
 	{
-		_client = httpClientFactory.CreateClient(nameof(PackageFeed));
-		_logger = loggerFactory.CreateLogger(nameof(PackageFeed));
+		_client = httpClientFactory.CreateClient(nameof(BadgeService));
+		_logger = loggerFactory.CreateLogger(nameof(BadgeService));
 	}
 
 	public async Task<Badge> GetBadgeAsync(Package package, Skin skin)
 	{
 		var badge = new Badge(skin.Label ?? package.Name, package.LatestVersion.Version, skin.Color, skin.Style, skin.Logo);
-		_logger.LogInformation("Get badge image stream from {0}", badge.Uri);
+		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get badge image from uri '{uri}'.", badge.Uri);
 		var response = await _client.GetAsync(badge.Uri);
 		badge.Stream = await response.Content.ReadAsStreamAsync();
 		return badge;

@@ -16,6 +16,7 @@
 
 #endregion
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -25,9 +26,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Be.Stateless.Azure.WebJobs.Host.Bindings;
 
-public class FromQueryBinding<T> : IBinding where T : new()
+public class FromQueryStringBinding<T> : IBinding where T : new()
 {
-	public FromQueryBinding(ILogger logger)
+	public FromQueryStringBinding(ILogger logger)
 	{
 		_logger = logger;
 	}
@@ -37,14 +38,19 @@ public class FromQueryBinding<T> : IBinding where T : new()
 	public Task<IValueProvider> BindAsync(BindingContext context)
 	{
 		var request = context.BindingData.Select(kv => kv.Value).OfType<HttpRequest>().First();
-		return Task.FromResult<IValueProvider>(new FromQueryValueProvider<T>(request.Query, _logger));
+		if (_logger.IsEnabled(LogLevel.Debug))
+			_logger.LogDebug(
+				"Constructing custom value provider FromQueryStringValueProvider<{type}> for query '{query}'.",
+				typeof(T).Name,
+				request.QueryString);
+		return Task.FromResult<IValueProvider>(new FromQueryStringValueProvider<T>(request.Query, _logger));
 	}
 
 	public bool FromAttribute => true;
 
 	public Task<IValueProvider> BindAsync(object value, ValueBindingContext context)
 	{
-		return null;
+		throw new NotImplementedException(); // return null;
 	}
 
 	public ParameterDescriptor ToParameterDescriptor() => new();
