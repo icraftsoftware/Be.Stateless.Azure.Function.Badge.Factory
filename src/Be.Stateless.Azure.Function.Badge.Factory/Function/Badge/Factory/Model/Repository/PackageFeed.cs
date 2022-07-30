@@ -38,7 +38,7 @@ public class PackageFeed
 		var uri = GetPackageFeedUriForArtifact(artifact);
 		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get artifact package details from feed '{uri}'.", uri);
 		var content = await _client.GetFromJsonAsync<Content<Package>>(uri);
-		return content!.Value.Single();
+		return content!.Value.Single(p => p.Name.Equals(artifact.Name, StringComparison.OrdinalIgnoreCase));
 	}
 
 	private Uri GetPackageFeedUriForArtifact(Artifact artifact)
