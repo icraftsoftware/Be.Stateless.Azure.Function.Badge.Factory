@@ -33,6 +33,7 @@ public class Startup : FunctionsStartup
 		builder.Services.AddHttpClient();
 		builder.Services.AddLogging();
 		builder.Services.AddScoped<BadgeService>();
+		builder.Services.AddScoped<BuildFeed>();
 		builder.Services.AddScoped<PackageFeed>();
 
 		// https://www.red-gate.com/simple-talk/blogs/custom-binding-azure-functions/
