@@ -22,17 +22,17 @@ using System.Linq;
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
 /// <summary>
-/// Artifact Details.
+/// Package Artifact Details.
 /// </summary>
-/// <seealso href="https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages?view=azure-devops-rest-6.0#package">Package</seealso>
+/// <seealso href="https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages#package">Package</seealso>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-public class Package
+public class PackageArtifact
 {
-	public PackageVersion LatestVersion => Versions.Single(v => v.IsLatest);
+	public PackageArtifactVersion LatestVersion => Versions.Single(v => v.IsLatest);
 
 	public string Name { get; init; }
 
 	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-	public PackageVersion[] Versions { get; init; }
+	public PackageArtifactVersion[] Versions { get; init; }
 }

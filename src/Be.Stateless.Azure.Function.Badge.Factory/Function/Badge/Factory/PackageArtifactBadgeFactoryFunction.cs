@@ -38,15 +38,13 @@ namespace Be.Stateless.Azure.Function.Badge.Factory;
 /// <example>
 /// <list type="bullet">
 /// <item>
-/// <![CDATA[https://badge-factory.azurewebsites.net/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
+/// <![CDATA[https://badge-factory.azurewebsites.net/artifact/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
 /// </item>
 /// <item>
-/// <![CDATA[
-/// https://badge-factory.azurewebsites.net/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx?color=red&label=Azure%20Artifact&logo=powershell&style=plastic
-/// ]]>
+/// <![CDATA[https://badge-factory.azurewebsites.net/artifact/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx?color=red&label=Azure%20Artifact&logo=powershell&style=plastic]]>
 /// </item>
 /// <item>
-/// <![CDATA[http://localhost:7071/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
+/// <![CDATA[http://localhost:7071/artifact/package/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx]]>
 /// </item>
 /// </list>
 /// </example>
@@ -54,38 +52,39 @@ namespace Be.Stateless.Azure.Function.Badge.Factory;
 /// <seealso href="https://azpkgsshield.azurevoodoo.net/icraftsoftware/be.stateless/BizTalk.Factory.Preview/Psx"/>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Azure Function.")]
 [SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Azure Function.")]
-public class PackageBadgeFactoryFunction
+public class PackageArtifactBadgeFactoryFunction
 {
-	public PackageBadgeFactoryFunction(PackageFeed packageFeed, BadgeService badgeService)
+	public PackageArtifactBadgeFactoryFunction(PackageFeed packageFeed, BadgeService badgeService)
 	{
 		_packageFeed = packageFeed;
 		_badgeService = badgeService;
 	}
 
 	[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Azure Function.")]
-	[FunctionName("package")]
+	[FunctionName("artifact/package")]
 	public async Task<IActionResult> Run(
-		[HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "package/{organization}/{project}/{feed}/{name}")] //
+		[HttpTrigger(AuthorizationLevel.Anonymous, nameof(HttpMethods.Get), Route = "artifact/package/{organization}/{project}/{feed}/{name}")] //
 		[FromRoute]
-		Artifact artifact,
+		PackageArtifactSpecification packageArtifactSpecification,
 		[FromQueryString] // ?color={color}&label={label}&logo={logo}&style={style}
 		Skin skin,
 		ILogger logger)
 	{
 		if (logger.IsEnabled(LogLevel.Debug))
 			logger.LogDebug(
-				"PackageBadgeFactoryFunction is manufacturing a badge for artifact {artifact} with skin {skin}.",
-				JsonSerializer.Serialize(artifact),
+				"{function} is manufacturing a badge for package artifact {artifact} with skin {skin}.",
+				nameof(PackageArtifactBadgeFactoryFunction),
+				JsonSerializer.Serialize(packageArtifactSpecification),
 				JsonSerializer.Serialize(skin));
 
-		var package = await _packageFeed.GetPackageAsync(artifact);
+		var packageArtifact = await _packageFeed.GetPackageArtifactAsync(packageArtifactSpecification);
 
 		// TODO ?? redirect to img.shields.io instead ?? but what about caching and workload for function ??
-		var badge = await _badgeService.GetBadgeAsync(package, skin);
+		var badge = await _badgeService.GetBadgeAsync(packageArtifact, skin);
 
 		return new CacheStreamResult(badge.Stream, badge.ContentType) {
 			EntityTag = badge.EntityTag,
-			LastModified = package.LatestVersion.PublishDate,
+			LastModified = packageArtifact.LatestVersion.PublishDate,
 			MaxAge = TimeSpan.FromMinutes(10)
 		};
 	}

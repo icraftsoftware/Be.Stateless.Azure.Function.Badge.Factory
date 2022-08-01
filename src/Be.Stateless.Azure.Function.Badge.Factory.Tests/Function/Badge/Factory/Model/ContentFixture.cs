@@ -72,7 +72,7 @@ namespace Be.Stateless.Azure.Function.Badge.Factory.Model
     }
   ]
 }";
-			Invoking(() => JsonSerializer.Deserialize<Content<Package>>(json)).Should().NotThrow();
+			Invoking(() => JsonSerializer.Deserialize<Content<PackageArtifact>>(json)).Should().NotThrow();
 		}
 	}
 }

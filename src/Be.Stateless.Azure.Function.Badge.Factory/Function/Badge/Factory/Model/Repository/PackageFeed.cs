@@ -33,20 +33,20 @@ public class PackageFeed
 		_logger = loggerFactory.CreateLogger(nameof(PackageFeed));
 	}
 
-	public async Task<Package> GetPackageAsync(Artifact artifact)
+	public async Task<PackageArtifact> GetPackageArtifactAsync(PackageArtifactSpecification packageArtifactSpecification)
 	{
-		var uri = GetPackageFeedUriForArtifact(artifact);
-		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get artifact package details from feed '{uri}'.", uri);
-		var content = await _client.GetFromJsonAsync<Content<Package>>(uri);
-		return content!.Value.Single(p => p.Name.Equals(artifact.Name, StringComparison.OrdinalIgnoreCase));
+		var uri = GetPackageFeedUri(packageArtifactSpecification);
+		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get package details from feed '{uri}'.", uri);
+		var packageArtifactResponse = await _client.GetFromJsonAsync<Content<PackageArtifact>>(uri);
+		return packageArtifactResponse!.Value.Single(p => p.Name.Equals(packageArtifactSpecification.Name, StringComparison.OrdinalIgnoreCase));
 	}
 
-	private Uri GetPackageFeedUriForArtifact(Artifact artifact)
+	private Uri GetPackageFeedUri(PackageArtifactSpecification packageArtifactSpecification)
 	{
 		// see https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages
 		var builder = new UriBuilder(Uri.UriSchemeHttps, "feeds.dev.azure.com") {
-			Path = $"{artifact.Organization}/{artifact.Project}/_apis/packaging/Feeds/{artifact.Feed}/packages",
-			Query = $"packageNameQuery={artifact.Name}"
+			Path = $"{packageArtifactSpecification.Organization}/{packageArtifactSpecification.Project}/_apis/packaging/Feeds/{packageArtifactSpecification.Feed}/packages",
+			Query = $"packageNameQuery={packageArtifactSpecification.Name}"
 		};
 		return builder.Uri;
 	}

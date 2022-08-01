@@ -30,9 +30,9 @@ public class BadgeService
 		_logger = loggerFactory.CreateLogger(nameof(BadgeService));
 	}
 
-	public async Task<Badge> GetBadgeAsync(Package package, Skin skin)
+	public async Task<Badge> GetBadgeAsync(PackageArtifact packageArtifact, Skin skin)
 	{
-		var badge = new Badge(skin.Label ?? package.Name, package.LatestVersion.Version, skin.Color, skin.Style, skin.Logo);
+		var badge = new Badge(skin.Label ?? packageArtifact.Name, packageArtifact.LatestVersion.Version, skin.Color, skin.Style, skin.Logo);
 		if (_logger.IsEnabled(LogLevel.Debug)) _logger.LogDebug("Get badge image from uri '{uri}'.", badge.Uri);
 		badge.Stream = await _client.GetStreamAsync(badge.Uri);
 		return badge;

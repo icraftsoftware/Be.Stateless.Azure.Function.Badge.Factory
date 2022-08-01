@@ -16,22 +16,19 @@
 
 #endregion
 
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
-/// <summary>
-/// Artifact Details.
-/// </summary>
-/// <seealso href="https://docs.microsoft.com/en-us/rest/api/azure/devops/artifacts/artifact-details/get-packages?view=azure-devops-rest-6.0#minimalpackageversion">MinimalPackageVersion</seealso>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-public class PackageVersion
+public class PackageArtifactSpecification
 {
-	public bool IsLatest { get; init; }
+	public string Feed { get; init; }
 
-	public DateTime PublishDate { get; init; }
+	public string Name { get; init; }
 
-	public string Version { get; init; }
+	public string Organization { get; init; }
+
+	public string Project { get; init; }
 }

@@ -65,7 +65,7 @@ public static class QueryCollectionExtensions
 	private static readonly byte[] _colon = Encoding.UTF8.GetBytes(":");
 	private static readonly byte[] _comma = Encoding.UTF8.GetBytes(",");
 	private static readonly byte[] _leftCurlyBrace = Encoding.UTF8.GetBytes("{");
-	private static readonly byte[] _null =  Encoding.UTF8.GetBytes("null");
-	private static readonly byte[] _quote =  Encoding.UTF8.GetBytes("\"");
-	private static readonly byte[] _rightCurlyBrace =  Encoding.UTF8.GetBytes("}");
+	private static readonly byte[] _null = Encoding.UTF8.GetBytes("null");
+	private static readonly byte[] _quote = Encoding.UTF8.GetBytes("\"");
+	private static readonly byte[] _rightCurlyBrace = Encoding.UTF8.GetBytes("}");
 }
