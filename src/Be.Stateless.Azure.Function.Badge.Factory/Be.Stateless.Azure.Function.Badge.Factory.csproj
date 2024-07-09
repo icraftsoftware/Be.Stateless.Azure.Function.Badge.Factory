@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.20.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
-    <PackageReference Include="System.Text.Json" Version="6.0.2" />
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
