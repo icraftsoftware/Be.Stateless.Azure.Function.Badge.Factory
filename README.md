@@ -1,1 +1,1 @@
-﻿# Be.Stateless.Azure.Function.Badge.Factory
+# Be.Stateless.Azure.Function.Badge.Factory

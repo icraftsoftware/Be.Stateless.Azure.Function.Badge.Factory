@@ -1,13 +1,13 @@
-﻿#region Copyright & License
+#region Copyright & License
 
-// Copyright © 2012 - 2022 François Chabot
-// 
+// Copyright © 2012 - 2024 François Chabot
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,15 +22,15 @@ using FluentAssertions;
 using Xunit;
 using static FluentAssertions.FluentActions;
 
-namespace Be.Stateless.Azure.Function.Badge.Factory.Model
+namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
+
+public class ContentFixture
 {
-	public class ContentFixture
+	[SuppressMessage("ReSharper", "StringLiteralTypo")]
+	[Fact]
+	public void DeserializeFromJson()
 	{
-		[SuppressMessage("ReSharper", "StringLiteralTypo")]
-		[Fact]
-		public void DeserializeFromJson()
-		{
-			const string json = @"{
+		const string json = @"{
   ""count"": 1,
   ""value"": [
     {
@@ -72,7 +72,6 @@ namespace Be.Stateless.Azure.Function.Badge.Factory.Model
     }
   ]
 }";
-			Invoking(() => JsonSerializer.Deserialize<Content<PackageArtifact>>(json)).Should().NotThrow();
-		}
+		Invoking(() => JsonSerializer.Deserialize<Content<PackageArtifact>>(json)).Should().NotThrow();
 	}
 }

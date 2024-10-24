@@ -1,6 +1,6 @@
 #region Copyright & License
 
-// Copyright © 2012 - 2022 François Chabot
+// Copyright Â© 2012 - 2024 FranÃ§ois Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
-/// <summary>
-/// Build Details.
-/// </summary>
+/// <summary>Build Details.</summary>
 /// <seealso href="https://docs.microsoft.com/en-us/rest/api/azure/devops/build/builds/get#build">Build</seealso>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]

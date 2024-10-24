@@ -1,6 +1,6 @@
 #region Copyright & License
 
-// Copyright © 2012 - 2022 François Chabot
+// Copyright Â© 2012 - 2024 FranÃ§ois Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,15 +21,13 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory.Model;
 
-/// <summary>
-/// Build Artifact Resource Details.
-/// </summary>
+/// <summary>Build Artifact Resource Details.</summary>
 /// <seealso href="https://docs.microsoft.com/en-us/rest/api/azure/devops/build/artifacts/get-artifact#artifactresource">ArtifactResource</seealso>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
 public class BuildArtifactResource
 {
-	public string DownloadUrl { get; init; }
+	public Uri DownloadUrl { get; init; }
 
 	public DateTime LastModified { get; init; }
 

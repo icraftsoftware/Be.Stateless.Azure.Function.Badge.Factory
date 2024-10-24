@@ -1,24 +1,24 @@
-﻿{
-    "version": "2.0",
-    "extensions": {
-        "http": {
-            "routePrefix": ""
-        }
-    },
-    "logging": {
-        "applicationInsights": {
-            "samplingSettings": {
-                "isEnabled": true,
-                "excludedTypes": "Request"
-            }
-        },
-        "logLevel": {
-            //"default": "Information",
-            "Function": "Debug",
-            "Function.Package": "Debug",
-            "BadgeService": "Debug",
-            "FromQueryStringBinding": "Debug",
-            "PackageFeed": "Debug"
-        }
+{
+  "version": "2.0",
+  "extensions": {
+    "http": {
+      "routePrefix": ""
     }
+  },
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
+    },
+    "logLevel": {
+      //"default": "Information",
+      "Function": "Debug",
+      "Function.Package": "Debug",
+      "BadgeService": "Debug",
+      "FromQueryStringBinding": "Debug",
+      "PackageFeed": "Debug"
+    }
+  }
 }

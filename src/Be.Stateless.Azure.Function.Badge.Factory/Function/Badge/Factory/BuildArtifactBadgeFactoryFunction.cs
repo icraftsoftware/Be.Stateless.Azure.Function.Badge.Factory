@@ -1,13 +1,13 @@
-﻿#region Copyright & License
+#region Copyright & License
 
-// Copyright © 2012 - 2022 François Chabot
-// 
+// Copyright © 2012 - 2024 François Chabot
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,24 +32,19 @@ using Microsoft.Extensions.Logging;
 
 namespace Be.Stateless.Azure.Function.Badge.Factory;
 
-/// <summary>
-/// A C# Azure Function app to display version badges for build artifacts produced by public Azure Pipelines.
-/// </summary>
+/// <summary>A C# Azure Function app to display version badges for build artifacts produced by public Azure Pipelines.</summary>
 /// <example>
-/// <list type="bullet">
-/// <item>
-/// <![CDATA[https://badge-factory.azurewebsites.net/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime]]>
-/// </item>
-/// <item>
-/// <![CDATA[https://badge-factory.azurewebsites.net/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime%20Continuous%20Integration/BizTalkPackages/BizTalk.Factory.Runtime.Deployment.zip]]>
-/// </item>
-/// <item>
-/// <![CDATA[https://badge-factory.azurewebsites.net/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime%20Continuous%20Integration/BizTalkPackages/BizTalk.Factory.Runtime.Deployment.zip?color=red&label=Azure%20Artifact&logo=powershell&style=plastic]]>
-/// </item>
-/// <item>
-/// <![CDATA[http://localhost:7071/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime]]>
-/// </item>
-/// </list>
+///    <list type="bullet">
+///       <item>
+///          <![CDATA[https://badge-factory.azurewebsites.net/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime]]>
+///       </item> <item>
+///          <![CDATA[https://badge-factory.azurewebsites.net/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime%20Continuous%20Integration/BizTalkPackages/BizTalk.Factory.Runtime.Deployment.zip]]>
+///       </item> <item>
+///          <![CDATA[https://badge-factory.azurewebsites.net/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime%20Continuous%20Integration/BizTalkPackages/BizTalk.Factory.Runtime.Deployment.zip?color=red&label=Azure%20Artifact&logo=powershell&style=plastic]]>
+///       </item> <item>
+///          <![CDATA[http://localhost:7071/artifact/build/icraftsoftware/be.stateless/BizTalk.Factory.Runtime]]>
+///       </item>
+///    </list>
 /// </example>
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Azure Function.")]
 [SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Azure Function.")]

@@ -1,6 +1,6 @@
-﻿#region Copyright & License
+#region Copyright & License
 
-// Copyright © 2012 - 2022 François Chabot
+// Copyright © 2012 - 2024 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -48,20 +48,14 @@ public class CacheStreamResult : IActionResult
 
 	#endregion
 
-	/// <summary>
-	/// Gets the Content-Type header for the response.
-	/// </summary>
+	/// <summary>Gets the Content-Type header for the response.</summary>
 	[SuppressMessage("ReSharper", "UnusedMember.Global")]
 	public string ContentType => _fileResult.ContentType;
 
-	/// <summary>
-	/// Gets or sets the etag associated with the <see cref="Stream"/>.
-	/// </summary>
+	/// <summary>Gets or sets the etag associated with the <see cref="Stream" />.</summary>
 	public string EntityTag { get; init; }
 
-	/// <summary>
-	/// Gets or sets the last modified information associated with the <see cref="FileResult"/>.
-	/// </summary>
+	/// <summary>Gets or sets the last modified information associated with the <see cref="FileResult" />.</summary>
 	[SuppressMessage("ReSharper", "UnusedMember.Global")]
 	public DateTimeOffset? LastModified
 	{
